@@ -8,6 +8,7 @@ Write code to:-
 - add multiple players in those collections which should have fields like `name`, `age` and `email` and `bid_price`.
 - list all collections in sports database.
 - rename `TT` collection to `tennis`.
+db.TT.renameCollection("tennis")
 - create a capped collection called `khokho` which should have max 3 documents.
   Try inserting more than 3 and see what happens?
 - check whether a collection is capped or not?
