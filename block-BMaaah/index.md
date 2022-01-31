@@ -3,7 +3,9 @@ writeCode
 Write code to execute below expressions.
 
 1. Create a database named `blog`.
+use blog
 2. Create a collection called 'articles'.
+db.createCollection("articles")
 3. Insert multiple documents(at least 3) into articles. It should have fields
 
 - title as string
@@ -32,25 +34,85 @@ Write code to execute below expressions.
 }
 ```
 
+```js
+var articles = [
+  {
+    _id: 1,
+    title: "intro to mongo db",
+    details: "This is all about to introduction to mongo db ",
+    author: {
+      name: "kmk",
+      email: "kmk@books.com",
+      age: "28",
+    },
+    tags: ["js", "mongo"],
+  },
+  {
+    _id: 2,
+    title: "advanced mongo db",
+    details: "This is all about to advanced topics in mongo db ",
+    author: {
+      name: "kmk",
+      email: "kmk@books.com",
+      age: "28",
+    },
+    tags: ["js", "mongo", "adv"],
+  },
+  {
+    _id: 3,
+    title: "mongo db for admins",
+    details: "This is all about to mongo db for system admins ",
+    author: {
+      name: "kmk",
+      email: "kmk@books.com",
+      age: "28",
+    },
+    tags: ["js", "mongo", "admin"],
+  },
+  {
+    _id: 4,
+    title: "mongo db internals",
+    details: "A deep dive to  mongo db ",
+    author: {
+      name: "kmk",
+      email: "kmk@books.com",
+      age: "28",
+    },
+    tags: ["js", "mongo", "internals", "advanced"],
+  }
+];
+
+```
+
 4. Find all the articles using `db.COLLECTION_NAME.find()`
+db.articles.insertMany(articles)
 5. Find a document using \_id field.
+ db.articles.find({"_id":1}).pretty()
 6. 1. Find documents using title
+ db.articles.find({"title": "mongo db internals"}).pretty()
 7. 2. Find documents using author's name field.
+db.articles.find({"author.name": "kmk"}).pretty()
 8. Find document using a specific tag.
-
+db.articles.find({details: "This is all about to advanced topics in mongo db "})
 9. Update title of a document using its \_id field.
+ db.articles.findAndModify({query:{"_id": 1}, update: {title: "updated title"}})
 10. Update a author's name using article's title.
+db.articles.update({"_id": 4}, {"$set": {"author.name": "kmk-----4"}})
 11. rename details field to description from all articles in articles collection.
+db.articles.update({}, {$rename:{"details":"description"}}, false, true)
 12. Add additional tag in a specific document.
-
+db.articles.update({"_id":3}, {$push:{tags: "sysadmin"}})
 13. Update an article's title using $set and without $set.
-
+db.articles.update({"_id":3}, {"$set":{"title":"titileeeeee"}})
 - Write the differences here ?
-
+<!-- db.articles.update({"_id": 4}, {"$set": {"author.school": "sssss-----4"}}) -->
+With $set parameter if there is no value for update then it creates new one and for other it doesnt work like this
 13. find an article using title and increment it's auhtor's age by 5.
 
-14. Delete a document using \_id field with `db.COLLECTION_NAME.remove()`.
+db.articles.update({"_id":3}, {$inc:{"author.age": 5}})
 
+14. Delete a document using \_id field with `db.COLLECTION_NAME.remove()`.  
+db.articles.remove({"_id": 1})
 // Sample data
 
 ```js
@@ -168,6 +230,11 @@ db.users.insertMany([
 Insert above data into database to perform below queries:-
 
 - Find all males who play cricket.
+db.articles.find({"gender": "male", "sports": "cricket"})
 - Update user with extra golf field in sports array whose name is "Steve Ortega".
+db.users.update({"name":"Steve Ortega"}, {$push: {sports: "golf"}})
 - Find all users who play either 'football' or 'cricket'.
+db.users.find({sports:{$in: ["football", "cricket"]}})
 - Find all users whose name includes 'ri' in their name.
+ db.users.find({name: {$in:[/ri/]}})
+
