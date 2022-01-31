@@ -17,6 +17,10 @@ host, username and password are optional fields.
 - --file: file location
 - --jsonArray: Passed an array of json objects
 
+This command has to be executed in cmd in normal mode, not in mongo shell
+
+mongoimport --db testImport --collection importJson --file "D:\Study\AltC\TA-AC-BACKEND-mongodb-basics-TMaaaa\block-BMaaai\cities.json" --jsonArray
+
 ## BLOCK-writeCode
 
 Go to `https://www.json-generator.com/`
@@ -42,13 +46,14 @@ Go to `https://www.json-generator.com/`
 
 - download it on `Desktop`
 - import it into mongodb `test` database into a collection named `users`
+mongoimport --db test --collection users --file "C:\Users\manoj\OneDrive\Desktop\generated.json" --jsonArray
 
 #### Export data from mongodb server to local system in json format using
 
 `mongoexport`command.
 
 ```
-mongoexport --db state --collection cities --out ~/Desktop/states/city.json --jsonArray
+mongoexport --db state --collection cities --out "C:\Users\manoj\OneDrive\Desktop\exported_1.json" --jsonArray
 ```
 
 ## BLOCK-writeCode
